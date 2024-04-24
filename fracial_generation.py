@@ -32,7 +32,8 @@ class FractalViewer:
         plt.show()
 
 # Пример использования класса FractalViewer
-viewer = FractalViewer()
-value_fractal = 500  # Задаем значение переменной value_fractal
-choice_theme = 'hot'  # Пример значения для choice_theme
-viewer.draw_mandelbrot(value_fractal, choice_theme)
+# viewer = FractalViewer()
+# value_fractal = 500  # Задаем значение переменной value_fractal
+# choice_theme = 'hot'  # Пример значения для choice_theme
+# viewer.draw_mandelbrot(value_fractal, choice_theme)
+
