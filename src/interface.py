@@ -1,7 +1,3 @@
-import customtkinter
-from fracial_generation import FractalViewer
-
-
 class CustomFractalApp:
     def __init__(self):
         self.value_fractal = 1234567890
@@ -10,30 +6,30 @@ class CustomFractalApp:
         self.app = customtkinter.CTk()
         self.app.geometry("700x460")
 
-    def button_function(self):
+    def button_function(self, value_fractal, choice_theme):
         viewer = FractalViewer()
-        value_fractal = 500
-        choice_theme = 'hot'
         viewer.draw_mandelbrot(value_fractal, choice_theme)
         print("button pressed")
 
+    def change_text(self):
+        new_text = "Новый текст"
+        self.variable.set(new_text)
+
     def combobox_callback(self, choice):
         print("Вы выбрали эту тему в matplotlib:", choice)
+        global choice_theme
         self.choice_theme = choice
 
     def slider_event(self, value):
         self.value_fractal = int(value)
-        print(self.value_fractal)
-        self.value_label.config(text='Value: {}'.format(self.slider.get()))
-
-    def draw_mandelbrot(self):
-        pass
+        self.value_label.configure(text=f'Разрешение фрактала : {self.value_fractal} x {self.value_fractal}')
 
     def run_app(self):
         label_s = customtkinter.CTkLabel(self.app, text="Фрактальный мир", fg_color="transparent")
         label_s.place(relx=0.5, rely=0.07, anchor=customtkinter.CENTER)
 
-        button = customtkinter.CTkButton(master=self.app, text="Генерация фрактала", command=self.button_function)
+        button = customtkinter.CTkButton(master=self.app, text="Генерация фрактала",
+                                         command=lambda: self.button_function(self.value_fractal, self.choice_theme))
         button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
 
         slider = customtkinter.CTkSlider(self.app, from_=500, to=5000, width=500, command=self.slider_event)
@@ -43,9 +39,9 @@ class CustomFractalApp:
                                        text="500x500 пикселей                                                                    5000x5000 пикселей",
                                        fg_color="transparent")
         label.place(relx=0.5, rely=0.74, anchor=customtkinter.CENTER)
-
-        self.value_label = customtkinter.CTkLabel(self.app, text='Value: {}'.format(slider.get()))
-        self.value_label.pack()
+        #
+        self.value_label = customtkinter.CTkLabel(self.app, text='Разрешение фрактала: {}'.format(slider.get()))
+        self.value_label.pack(anchor=customtkinter.S)
 
         combobox = customtkinter.CTkComboBox(master=self.app,
                                              values=['Set1', 'Set1_r', 'Set2', 'Set2_r', 'Set3', 'Set3_r', 'Spectral',
@@ -60,3 +56,4 @@ class CustomFractalApp:
         combobox.set("Выберите тему   фрактала")  # set initial value
 
         self.app.mainloop()
+
